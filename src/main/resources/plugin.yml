@@ -1,0 +1,5 @@
+name: YBossRoom
+version: 1.0
+main: YBossRoom.yuziouo.Loader
+author: yuziouo
+api: [1.0.8]
