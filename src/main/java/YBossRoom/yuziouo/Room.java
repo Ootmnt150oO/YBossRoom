@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.math.Vector3;
+import cn.nukkit.utils.TextFormat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ public class Room {
     public void joinTeam(String s,Player player){
         if (!hasRoom(player)){
             manager.get(s).add(player.getName());
+            Server.getInstance().broadcastMessage(TextFormat.YELLOW+"玩家 "+player.getName()+TextFormat.AQUA+"已經加入副本:"+TextFormat.YELLOW+s);
             if (manager.get(s).size()==Loader.getLoader().getRoomConfig(s).getInt("人數上限")){
                 for (String s1:manager.get(s)){
                     Player player1 = Server.getInstance().getPlayer(s1);
@@ -101,7 +103,6 @@ public class Room {
             getRoom(player).remove(player.getName());
         }
     }
-
     public static Room getInstance() {
         return instance;
     }

@@ -19,6 +19,7 @@ public class BossRoomCmd extends Command {
                 Player player = (Player) commandSender;
                 if (strings.length == 2){
                     if (strings[0].equals("create")){
+                        if(!Loader.getLoader().rooms.contains(strings[1]))return true;
                         Config config = new Config(Loader.getLoader().getDataFolder()+"/Room/"+strings[1]+".yml",Config.YAML);
                         config.set("副本世界",player.getLevel().getName());
                         config.set("座標",player.getFloorX()+":"+player.getFloorY()+":"+player.getFloorZ());
@@ -37,6 +38,7 @@ public class BossRoomCmd extends Command {
                         commandSender.sendMessage("創建房間成功");
                         return true;
                     }else if (strings[0].equals("end")){
+                        if(!Loader.getLoader().rooms.contains(strings[1]))return true;
                         Config config = Loader.getLoader().getRoomConfig(strings[1]);
                         config.remove("副本結束點");
                         int y = player.getFloorY()-1;
@@ -45,6 +47,15 @@ public class BossRoomCmd extends Command {
                         config.save();
                             player.sendMessage("設定成功");
                             return true;
+                    }
+                }else if (strings.length == 1){
+                    if (strings[0].equals("reload")){
+                        Loader.getLoader().rooms.clear();
+                        Loader.getLoader().loadRoom();
+                        for (String ss:Loader.getLoader().rooms) {
+                            Room.getInstance().createRoom(ss);
+                        }
+                        player.sendMessage("副本房間重新讀取完成");
                     }
                 }
             }
