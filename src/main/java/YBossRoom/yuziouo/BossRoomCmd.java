@@ -19,7 +19,7 @@ public class BossRoomCmd extends Command {
                 Player player = (Player) commandSender;
                 if (strings.length == 2){
                     if (strings[0].equals("create")){
-                        if(!Loader.getLoader().rooms.contains(strings[1]))return true;
+                        if(Loader.getLoader().rooms.contains(strings[1]))return true;
                         Config config = new Config(Loader.getLoader().getDataFolder()+"/Room/"+strings[1]+".yml",Config.YAML);
                         config.set("副本世界",player.getLevel().getName());
                         config.set("座標",player.getFloorX()+":"+player.getFloorY()+":"+player.getFloorZ());
